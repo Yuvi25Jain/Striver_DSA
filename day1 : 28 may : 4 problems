@@ -1,0 +1,29 @@
+q1 largest element in array  , q2 : second largest , q3 : sorted array check , q4 : remove duplicate and count unique elements of it
+
+
+q3 : check if the given array is sorted
+
+bool sorted(int a[], int n){
+    for(int i = 1 ; i < n ; i++){
+        if(a[i] < a[i-1]){
+            return false ;
+        }
+    }
+    return true ; 
+}
+
+//q4 : remove duplicate in place from sorted array: brute force : unique elements think of set for first pass. optimised : use of 2 pointer.
+
+/*input {1,1,2,2,2,3,3} output 3(1,2,3)*/
+
+int num_unique(int a[], int n){
+    int i = 0 ;
+    for(int j = 1 ; j < n ; j++){
+        if(a[j] != a[i]){
+            a[i+1] = a[j] ;
+            i++ ; 
+        }
+
+    }
+    return (i+1);
+}
