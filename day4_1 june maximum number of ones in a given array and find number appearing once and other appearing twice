@@ -1,0 +1,53 @@
+//find maximum number of consecutive ones
+
+int maxones(int a[], int n)
+{
+    int maxi = 0, cnt = 0;
+    for (int i = 0; i < n; i++)
+    {
+        if (a[i] == 1)
+        {
+            cnt++;
+            maxi = max(maxi, cnt);
+        }
+        else
+        {
+            cnt = 0; // Reset count when a 0 is encountered
+        }
+    }
+    return maxi;
+}
+
+----------------------------------------------------------------------------------------------------------------------
+
+//find nummber which is appearing once and other which is appearing twice
+/*
+brute O(N2) -> BETTER O(3N) ->OPTIMAL O(N)
+
+BRUTE : linear search keep count of element , BETTER : use of HASH and ORDERD MAP , OPTIMAL :  XOR*/
+
+int appearonce(int a[], int n ){
+    for(int i = 0 ; i<n ; i++){
+     int num = a[i];
+        int cnt = 0;
+        for (int j = 0; j < n; j++) {
+            if (a[j] == num) {
+                cnt++;
+            }
+        }
+        if (cnt == 1) {
+            return num;
+        }
+    }
+    return -1; // If no element appears exactly once
+
+}
+
+int numoncexor(int a[] , int n){
+    int result = 0 ;
+    for(int i = 0 ; i<n ; i++){
+        result = result^a[i] ;
+    }
+    return result ;
+}
+
