@@ -1,0 +1,49 @@
+// q1 : missing no in an array: O(N*N){BRUTE} -> O(2N){BETTER} -> O(N){OPTIMAL}
+
+//brute : first generate all the elements check each with given array
+
+// int missing(int a[], int n){
+//     for(int i = 1 ; i<= n ; i++){
+//         int flag = 0 ;
+//         for(int j = 0 ; j < n ; j++){
+//             if(a[j] == i){
+//                 flag = 1 ; 
+//             }
+           
+//         } 
+//         if(flag == 0){
+//         return i ;
+//     }
+        
+//     }
+   
+// }
+
+// better : hashing : mark 1 for if element is present and 0 for missing then print i 
+
+// int missing(int a[], int n){
+//     int hash[n+1] = {0} ;
+//     for(int i = 0 ; i<n ; i++){
+//         hash[a[i]] = 1 ;
+//     }
+//     for(int i = 1 ; i<=n ; i++){
+//         if(hash[i] == 0){
+//             return i ; 
+//         }
+//     }
+// }
+
+
+//optimised solution : two ways . 1. sum of N natural number - sum of all elements in an array . 2. XOR
+
+int missing(int a[] , int n){
+    int N = n + 1;
+    int sum = (N * (N + 1)) / 2; // Corrected multiplication
+    int s2 = 0;
+    for (int i = 0; i < n; i++) {
+        s2 += a[i];
+    }
+    return (sum - s2);
+}
+
+1 2 4 5 rturn missing number 3 
