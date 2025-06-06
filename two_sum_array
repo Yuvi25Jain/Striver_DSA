@@ -1,0 +1,70 @@
+#include <iostream>
+#include <vector>         // Added for std::vector
+#include <unordered_map>  // Added for std::unordered_map
+#include <string>
+using namespace std;
+
+// question : two sum : find (2 elements) or (their indexes) such that their sum is equal to target of given array
+
+// brute force : 2 loops . for i loop and j loop will start from i+1 . compare if a[i]+ a[j] = target then return yes. else no.
+
+//
+// string twoSum(int n, vector<int> &arr, int target) {
+//     for (int i = 0; i < n; i++) {
+//         for (int j = i + 1; j < n; j++) {
+//             if (arr[i] + arr[j] == target) return "YES";
+//         }
+//     }
+//     return "NO";
+// }
+
+// bteer : use of unordered hash map . take one element. find the difference between target and that element and store it in ans variable. Now check for that element in map . if exist then return yes else no
+
+// string twoSum(int n, vector<int> &arr, int target) {
+//     unordered_map<int, int> mpp;
+//     for (int i = 0; i < n; i++) {
+//         int num = arr[i];
+//         int moreNeeded = target - num;
+//         if (mpp.find(moreNeeded) != mpp.end()) {
+//             return "YES";
+//         }
+//         mpp[num] = i;
+//     }
+//     return "NO";
+// }
+
+
+//optimal approach :  using 2 pointer approach. Greedy method
+
+// We will sort the given array first.
+// Now, we will take two pointers i.e. left, which points to the first index, and right, which points to the last index.
+// Now using a loop we will check the sum of arr[left] and arr[right] until left < right.
+// If arr[left] + arr[right] > sum, we will decrement the right pointer.
+// If arr[left] + arr[right] < sum, we will increment the left pointer.
+// If arr[left] + arr[right] == sum, we will return the result.
+// Finally, if no results are found we will return “No” or {-1, -1}.
+
+string twoSum(int n, vector<int> &arr, int target) {
+    sort(arr.begin(), arr.end());
+    int left = 0, right = n - 1;
+    while (left < right) {
+        int sum = arr[left] + arr[right];
+        if (sum == target) {
+            return "YES";
+        }
+        else if (sum < target) left++;
+        else right--;
+    }
+    return "NO";
+}
+
+int main()
+{
+    vector<int> arr;
+    int n = 5;
+   arr = {2, 6, 5, 8, 11};
+    int target = 14;
+    string ans = twoSum(n, arr, target);
+    cout << "This is the answer for variant 1: " << ans << endl;
+    return 0;
+}
