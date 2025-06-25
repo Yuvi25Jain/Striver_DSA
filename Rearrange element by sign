@@ -1,0 +1,24 @@
+Question : rearrange positive and negative number alternatively.
+
+Brute force : tc : O(2n) and SC : O(n) as it requires extra array . we are generating two vectors which stores postive element at even indexs and negative elements at odd indexes. 2 iteration , 1 for separting pos and negative number and 2nd for checking if pos or negative then increase index.
+
+  Optimal : o(n) tc and o(n) to print output. start with 0 index for positive and 1 for negative index.
+
+
+vector<int> rearrangeArray(vector<int>& nums) {
+        int n  = nums.size() ;
+        vector<int> a(n,0) ;
+        int posIndex = 0 , negIndex = 1 ;
+        for(int i = 0 ; i < n ; i++){
+            if(nums[i] < 0 ){
+                a[negIndex] = nums[i] ;
+                negIndex +=2 ;
+            }
+            else{
+                a[posIndex] = nums[i] ;
+                posIndex +=2 ; 
+            }
+        }
+        return a ; 
+        
+    }
