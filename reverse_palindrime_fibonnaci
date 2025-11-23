@@ -1,0 +1,27 @@
+// reverse arry using recursion 
+// void reversearray(int i , int a[], int n){
+//     if(i >= n/2){
+//         return ; 
+//     }
+//     swap(a[i], a[n-i-1]);
+//     reversearray(i+1 , a , n);
+// }
+
+// void printarray(int a[], int n){
+//     for(int i = 0 ; i <n ; i++){
+//         cout<<a[i]<<" ";
+//     }
+// }
+
+// without recursion fibonnaci number
+
+void fibonnaci(int n){
+    int fib[n];
+    fib[0] = 0 ;
+    fib[1] = 1 ;
+    cout<<fib[0]<<" "<<fib[1]<<" ";
+    for(int i = 2 ; i<n ; i++){
+        fib[i] = fib[i-1] + fib[i-2];
+        cout<<fib[i]<<" ";
+    }
+}
