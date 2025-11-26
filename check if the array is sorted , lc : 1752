@@ -1,0 +1,75 @@
+question : if the array is sorted then return true else return false . 
+
+approach : brute : o (n2) : 2 loops and optimised o(n) : 1 loop 
+
+sorted means : all consecutive pairs are in correct order.
+
+basic implementation without considering edge case , my code with errors:
+
+bool sorted(int a[], int n){
+    for(int i = 0 ; i < n ; i++){
+        if(a[i] < a[i+1]){
+            
+            return true ;
+        }
+      break;
+    }
+     return false ;
+
+}
+
+// 3 errors:
+/*
+1. i = 0 to n , throws out of bound error or runtime error , if the element is 
+last i.e n-1 then it will compare with invalid or not exist element
+i.e a[n]
+
+2. break ; logical flaw runs the loop only once, only runs for
+first pair i.e a[0] , a[1] and ignore others.
+
+3. incorrect return condition  , the function return if the next element
+is greater than current which doesn't means that array is sorted
+
+for sorted array all consecutive pairs have to satisfy this condition
+
+
+*/
+
+basic implement without error without edge case
+  bool sorted(int a[], int n) {
+    for (int i = 0; i < n - 1; i++) {   // stop at n-2
+        if (a[i] > a[i+1]) {            // check descending violation
+            return false;
+        }
+    }
+    return true; // if no violations found
+}
+
+
+/*LEARNING  : BOOLALPHA : WHICH IS STREAM MANIPULATOR LET US TO RETURN TRUE OR FALSE IN MAIN FUNCTION INSTEAD OF 0 OR 1*/
+
+
+edge case : {3,4,5,1,2}
+o/p : true why?
+
+  
+
+bcuz rotation is allowed if we rotate it by x =  pos then original array will be 1 , 2, 3, 4 ,5 which is sorted that's why . 
+
+  how to handle : take a variable countdrop . increase its value if the next element is smaller than the current element . and at the end check if its counts <=  1 then return true else false.
+
+
+  code : 
+bool check(vector<int>& a) {
+        int n = a.size();
+        int countDrops = 0;
+
+    for (int i = 0; i < n; i++) {
+        int next = a[(i+1) % n];
+        if (a[i] > next) {
+            countDrops++;
+        }
+    }
+    return countDrops <= 1;  // allow exactly one drop
+      
+    }
