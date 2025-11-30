@@ -1,0 +1,46 @@
+int findMaxConsecutiveOnes(vector<int>& nums) {
+        int maxi = 0 ;
+        int n = nums.size();
+        int count = 0 ;
+        for(int i = 0 ; i < n ; i++){
+            if(nums[i] == 1){
+                count ++ ;
+                maxi = max(maxi , count);
+            }
+            else{
+                count = 0 ; 
+            }
+        return maxi;
+        
+    }
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+ int singleNumber(vector<int>& nums) {
+        int xorr = 0 ;
+        for(int i = 0 ; i < nums.size() ; i++){
+            xorr = xorr ^ nums[i];
+        }
+        return xorr ;
+        
+    }
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+generate all the subarray 
+
+
+
+void subarry(int a[], int n){
+    cout<<"Subarrays are: "<<endl;
+    for(int i = 0 ; i < n ; i ++){
+        for(int j = i ; j < n ; j++){
+            for(int k = i ; k<=j ; k++){
+                cout<<a[k]<<" ";
+            }
+            cout<<endl;
+        }
+    }
+}
