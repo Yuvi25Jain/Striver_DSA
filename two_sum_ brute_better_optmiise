@@ -1,0 +1,70 @@
+QUESTION : FIND THOSE 2 ELEMENT WHOSE SUM IS EQUAL TO TARGET.
+
+
+2 variants
+1. return true or false if sum of two elements is equal to target
+2. return indices of those elements
+
+Approaches:
+
+1. brute : simple add two element compare if equal then true else false
+
+note: if we want to return two integer values(here indices) then we use vector<int> twosum . not int two sum.
+becz int will return only one value.
+
+2. better : unordered map , take one element and find the remaining one by target - one element , if 
+it is already present in hash map then upgrade its index else add in map. 
+
+3. optimised: two pointer approach
+
+left from 0 and right from n- 1 . if sum< target increase left ptr else increase right ptr
+
+NOTE : IF WE ARE USING INT A[] AS ARGU AND WANT TO DO SORTING THEN USE SORT(A,A+N) INSTEAD OF SORT(A.BEGIN() , A.END());
+BECUASE THIS IS RAW ARRAY AND DOESN'T SUPPORT THIS. IT IS SUPPORTED IF WE ARE USING VECTOR ARRAY
+AS ITS ARGU.
+
+
+
+bool twosum_brute(int a[], int n , int k ){
+    for(int i = 0 ; i < n ; i++){
+        for(int j = 0 ; j < n ; j++){
+            if(a[i] + a[j] == k){
+                return true ;
+            }
+        }
+    }
+    return false;
+}
+
+vector<int> twoSum(vector<int>& nums, int target) {
+    unordered_map<int,int> mp;
+    for(int i=0; i<nums.size(); i++){
+        int rem = target - nums[i];
+        if(mp.find(rem) != mp.end()){
+            return {mp[rem], i};  // returning two indices
+        }
+        mp[nums[i]] = i;
+    }
+    return {};
+}
+
+bool twosum_optimal(vector<int>& a, int n, int target){
+    int l = 0 , r = n-1 ;
+    
+    sort(a.begin(), a.end());
+    while(l<r){
+        int sum = a[l] + a[r] ;
+        if( sum == target){
+            return true ;
+        }
+        else if( sum < target){
+            l++ ;
+        }
+        else{
+            r--;
+        }
+            
+        
+    }
+    return false ;
+}
