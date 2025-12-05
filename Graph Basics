@@ -1,0 +1,73 @@
+//n = nodes and m is edges , u , v are node1 , node2 respectively. way 1 : using matrix method
+
+void ig(int n , int m ,int adj[][100]){
+   
+    for(int i = 0 ; i < m ; i++){
+        int u, v ;
+        cin>>u>>v ;
+        adj[u][v] = 1 ;
+        adj[v][u] = 1 ;
+    }
+}
+
+void og(int n , int adj[][100]){
+    
+    for(int i = 0 ; i< n ; i++ ){
+        for(int j = 0 ; j< n ; j++){
+            cout<<adj[i][j]<<" ";
+        }
+        cout<<endl;
+    }
+    
+    
+}
+
+
+// way 2 : list
+
+// Input function: builds adjacency list
+void igl(int n, int m, vector<int> adj[]) {
+    for (int i = 0; i < m; i++) {
+        int u, v;
+        cin >> u >> v;
+        adj[u].push_back(v);
+        adj[v].push_back(u);   // remove this line if graph is directed
+    }
+}
+
+// Output function: prints adjacency list
+void ogl(int n, vector<int> adj[]) {
+    cout << "Adjacency List:\n";
+    for (int i = 1; i <= n; i++) {   // one-based indexing
+        cout << i << " -> ";
+        for (int v : adj[i]) {
+            cout << v << " ";
+        }
+        cout << endl;
+    }
+}
+
+/* for weighted grraph using list 
+
+// Input function: builds weighted adjacency list
+void igl(int n, int m, vector<pair<int,int>> adj[]) {
+    for (int i = 0; i < m; i++) {
+        int u, v, w;
+        cin >> u >> v >> w;   // edge from u to v with weight w
+        adj[u].push_back({v, w});
+        adj[v].push_back({u, w});   // remove this line if graph is directed
+    }
+}
+
+// Output function: prints weighted adjacency list
+void ogl(int n, vector<pair<int,int>> adj[]) {
+    cout << "Weighted Adjacency List:\n";
+    for (int i = 1; i <= n; i++) {
+        cout << i << " -> ";
+        for (auto p : adj[i]) {
+            cout << "(" << p.first << ", " << p.second << ") ";
+        }
+        cout << endl;
+    }
+}
+*/
