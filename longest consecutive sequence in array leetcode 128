@@ -1,0 +1,85 @@
+/*
+longest consecutive sequence . 
+
+eg : a[] = {101 , 102 , 3 ,4, 12 , 2, 1}
+o/p = 4 (1,2,3,4)
+
+brute force :
+
+1.take element x and traverse whole array to search for x+1 element using linear search. 
+2. TC : o(n2) 
+
+better : nlongn 
+
+sort the array , 3 variable cnt = 0 , lrg = 1 , lstsmall = INT_MIN
+Traverse the whole array
+let a[i] = 2
+if a[i] - 1 i.e 1 is present in lstsmall increase the cnt
+if it is not then make a[i] = lstsmall
+{2,100} here cnt will be reset to 1 for 100
+ 
+*/
+bool linearSearch(int a[], int n, int num) {
+       
+        // Traverse through the array 
+        for (int i = 0; i < n; i++) {
+            if (a[i] == num){
+                return true;
+            }
+        }
+        return false;
+    }
+
+int cons_brute(int a[], int n){
+    // two variable . count and length 
+    
+    int longest = 1 ;
+    for(int i = 0 ; i<n ; i++){
+        int x = a[i];
+        int cnt = 1 ;
+        while(linearSearch(a, n, x+1) == true){
+            x = x+1 ;
+            cnt += 1 ;
+        }
+        longest = max(longest , cnt);
+    }
+    return longest ;
+}
+
+int cons_better(int a[], int n){
+    //check if array is empty
+    if (n == 0){
+        return 0 ;
+    }
+    else{
+        sort(a, a+n); 
+        int lstsmall = INT_MIN ;
+        int cnt = 0 ;
+        int lrg = 1 ; 
+        for(int i = 0 ; i < n ; i++){
+            if (a[i] -1 == lstsmall){
+                cnt+=1;
+                lstsmall = a[i];
+            }
+            else if(lstsmall != a[i]){
+                //reset cnt to 1 bcuz here sequence is break
+                cnt = 1 ;
+                lstsmall = a[i];
+            }
+            lrg = max(lrg , cnt);
+        }
+        return lrg ;
+    }
+}
+
+
+int main()
+{
+    int a[10] = {0,3,7,2,5,8,4,6,0,1};
+    int ans = cons_brute(a,10);
+    cout<<"Answer: "<<ans<<endl;
+    int b[6] = {100,4,200,1,3,2};
+    int ans2 = cons_optimal(b,6);
+    cout<<"Answer 2: "<<ans2<<endl;
+    return 0;
+}
