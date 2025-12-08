@@ -1,0 +1,82 @@
+#include <iostream>
+#include<vector>
+#include<algorithm>
+#include<climits>
+using namespace std ;
+
+/*leader element or superior problem
+
+the elements on the right side of element is smaller than this no
+
+eg : Input: arr = [4, 7, 1, 0]  
+     Output: 7 1 0  
+     
+     
+brute force : start from 0 index, 2loops , one to check for leader element , and other to check whehter its 
+right element is smaller than leaderelemt
+
+  vector<int> leaders(vector<int>& nums) {
+        vector<int> ans;
+
+        // Iterate through each element in nums
+        for (int i = 0; i < nums.size(); i++) {
+            bool leader = true;
+
+            /* Check whether nums[i] is greater
+            than all elements to its right*/
+            // for (int j = i + 1; j < nums.size(); j++) {
+            //     // if (nums[j] >= nums[i]) {
+            //     //     /* If any element to the right is greater 
+            //     //     or equal, nums[i] is not a leader*/
+            //     //     leader = false;
+            //     //     break;
+            //     // }*/
+            // }*/
+
+            // If nums[i] is a leader, add it to the ans vector
+//             if (leader) {
+//                 ans.push_back(nums[i]);
+//             }
+//         }
+
+//       //Return the leaders 
+//         return ans;
+//     }
+// };*/
+
+
+/*optimal : start from end */
+
+vector<int> leaderelemt(vector<int>& a){
+    vector<int> ans;
+    int n = a.size();
+    int maxi = INT_MIN;
+    for(int i = n-1 ; i>= 0 ; i--){
+        if(a[i] >  maxi){
+            ans.push_back(a[i]);
+        }
+        maxi = max(maxi , a[i]);
+    }
+    
+    
+    // answer want sorted array.
+    sort(ans.begin(), ans.end());
+    return ans;
+}
+
+void printa(const vector<int>& a){
+   for(int x :  a){
+       cout<<x<<" ";
+   }
+   cout<<endl;
+}
+
+int main()
+{
+    vector<int> a = {4, 7, 1, 0};
+    vector <int>ans = leaderelemt(a);
+    cout<<"Leader or superior element is: "<<endl;
+    printa(ans);
+
+    return 0;
+}
