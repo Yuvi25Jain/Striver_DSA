@@ -1,0 +1,72 @@
+/*Maximum Product Subarray : max product of contiguuous array*/
+
+/*{2,3,-2,4} = 6 [2,3]
+
+
+brute force : generate all the subarrays , then compute product and compare
+3 loops to generate all subarray*/
+
+// int maxpro_brute(vector<int> &a){
+//     int n = a.size();
+//     int maxi = INT_MIN;
+//     for(int i = 0 ; i<n ; i++){
+//         for(int j = i ; j<n ; j++){
+//             int prod = 1 ;
+//             for(int k = i ; k<j ; k++){
+//                 prod = prod * a[k];
+//             }
+//             maxi = max(prod, maxi);
+//         }
+//     }
+//     return maxi;
+// }
+
+/*better : o(n2) , two loop , remove third one ... */
+
+// int maxpro_better(vector<int> &a){
+//     int n = a.size();
+//     int maxi = INT_MIN;
+//     for(int i = 0 ; i<n ; i++){
+//          int prod = 1 ;
+//         for(int j = i ; j<n ; j++){
+           
+            
+//             prod = prod * a[j];
+            
+//             maxi = max(prod, maxi);
+//         }
+//     }
+//     return maxi;
+// }
+
+/*optimal : o(n) observation intutive, calculate prefix , suffix , if 0 element then reset pref or suff*/
+int maxpro_optimal(vector<int> &a){
+   int n = a.size();
+   int ans = INT_MIN;
+   int prefix = 1 , suffix = 1 ;
+   for(int i = 0 ; i<n ; i++){
+       
+       //handling edge case if 0 element is there
+       if(prefix == 0){
+           prefix = 1 ;
+       }
+       if(suffix == 0){
+           suffix = 1 ;
+       }
+       prefix = prefix* a[i];
+       suffix = suffix*a[n-1-i];
+       ans = max(ans , max(prefix, suffix));
+   }
+   return ans; 
+    
+}
+
+
+
+int main()
+{
+    vector<int> a = {2,3,-2,4};
+    int ans = maxpro_optimal(a);
+    cout<<"Max product : "<<ans<<endl;
+    return 0;
+}
