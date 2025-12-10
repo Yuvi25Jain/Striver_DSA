@@ -1,0 +1,57 @@
+/*Largest subarray with sum zero
+
+brute : o(n3) , generate the subarray and compute sum and compare*/
+
+int zero_brute(vector<int> &a){
+    int n = a.size();
+    int maxi =  0 ;
+    for(int i = 0 ; i<n ; i++){
+        for(int j = i ; j<n ; j++){
+            int sum = 0 ;
+            for(int k = i ; k<= j ; k++){
+                sum +=a[k];
+            }
+            if(sum == 0 ){
+                maxi = max(maxi , j-i+1);
+            }
+        }
+    }
+    return maxi;
+}
+
+
+/*optimal : calculate prefix sum ... if at sum index is 0 then i+ 1 
+is giving sum and the remainng one is 0 . sum + 0 = sum , store sum in unordere map 
+*/
+
+int zero_optimal(vector<int> &a){
+    int n = a.size();
+    unordered_map<int,int> preInd ;
+    int sum = 0 , maxLen = 0 ;
+    
+    for(int i = 0 ; i<n ; i++){
+        sum += a[i];
+        if(sum == 0){
+            maxLen = i+1 ;
+        }
+        if (preInd.find(sum) != preInd.end()){
+            maxLen = max(maxLen , i- preInd[sum]);
+        }
+        else{
+            preInd[sum] = i ;
+        }
+    }
+    return maxLen ;
+    
+}
+
+int main(){
+    
+     vector<int> arr = {9, -3, 3, -1, 6, -5} ;
+     cout << "Largest subarray length with sum 0: " << zero_brute(arr) << endl;
+     cout << "Largest optmial: " << zero_optimal(arr) << endl;
+     
+
+
+    return 0;
+}
