@@ -1,0 +1,139 @@
+//dp : memoization :  recursion to dp : tc = o(n) and sc = o(n) + o(n) (for extra array)
+//dp me 3 ways to solve problem i.e 1. memoization , tabuation , space optmisation
+int fib(int n , vector<int>& dp){
+    if(n<=1){
+        return n ; //base condtion
+    }
+    if(dp[n] != -1){
+        return dp[n];
+    }
+    else{
+        return dp[n] = fib(n-1,dp) + fib(n-2,dp);
+    }
+}
+
+//dp method 2 : tabularization
+
+int fib_table(int n , vector<int>& dp){
+    dp[0] = 0 , dp[1] = 1 ;
+    for(int i = 2 ; i<=n ; i++){
+        dp[i] = dp[i-1] + dp[i-2];
+    }
+    return dp[n];
+}
+
+//dp method 3 : space optimised ... no array
+
+int fib_space(int n , vector<int>& dp){
+    int prev2 = 0 , prev = 1 ;
+    int curri  ;
+    for(int i = 2 ; i<=n ; i++){
+        curri = prev2 + prev;
+        prev2 = prev ;
+        prev = curri ;
+        
+    }
+    return prev;
+}
+
+// practice : dp of factorial of memoization : n*fact(n-1);
+
+
+//recursion of factorial
+// int fact(int n) {
+//     if (n == 0 || n == 1) {
+//         return 1;  // base case
+//     } else {
+//         return n * fact(n - 1);  // recursive case
+//     }
+// }
+
+
+int fact_mem(int n , vector<int>& dp){
+    if (n == 0 || n == 1){
+        return 1 ; 
+    }
+    if(dp[n] != -1){
+        return dp[n];
+    }
+    else{
+         return dp[n] = n*fact_mem(n-1,dp);
+    }
+}
+
+// dp : tabularization
+
+int fact_table(int n , vector<int>& dp){
+    dp[0] = 1 , dp[1] = 1 ;
+    for(int i = 2 ; i<n ; i++){
+        dp[i] = n*dp[i-1];
+    }
+    return dp[n];
+}
+
+//dp space optimised
+
+int fact_space(int n , vector<int>& dp){
+   if(n == 0 || n==1){
+       return 1 ;
+   }
+   int prev = 1 ;
+   for(int i = 2 ; i<=n ; i++){
+       prev = i* prev ;
+   }
+   return prev; 
+}
+
+
+
+int main()
+{
+   int n ;
+   cin>>n;
+  vector<int>dp(n+1,-1); //size + 1 dp array size fill all places with -1
+//   cout<<"Fibonnaci of given number is: " <<fib(n,dp)<<endl;
+//   cout<<"Fibonnaci of given number is: " <<fib_table(n,dp)<<endl;
+//   cout<<"Fibonnaci of given number is: " <<fib_space(n,dp)<<endl;
+
+cout<<"Factorial of no is: "<<fact_mem(n,dp)<<endl;
+cout<<"Factorial of no is: "<<fact_table(n,dp)<<endl;
+cout<<"Factorial of no is: "<<fact_space(n,dp)<<endl;
+    return 0;
+}
+
+when to apply recurssion and then dp ? when in question we are ask to total no of ways or max , min of those ways
+
+
+leetcode 70: we have to climb stair from 0 to n .we can either take 1 or 2 step . we need to give total no of distinct way to reach n
+
+
+int climbStairs(int n) {
+        if (n == 0 || n == 1) return 1;
+         vector<int> dp(n+1); 
+         dp[0] = 1; 
+         dp[1] = 1;
+        for (int i = 2; i <= n; i++) {
+             dp[i] = dp[i-1] + dp[i-2];
+         } 
+              return dp[n];
+        
+    }
+
+
+leetcode 128 : house rober : here no two adjacent house can be looted together . we need to return max profit from non adancent house
+
+
+   int rob(vector<int>& nums) {
+        if(nums.empty()) return 0 ;
+        if(nums.size() < 2){
+            return nums[0] ; 
+        }
+        vector<int>dp(nums.size());
+        dp[0] = nums[0];
+        dp[1] = max(nums[0] , nums[1]);
+        for(int i = 2 ; i<nums.size() ; i++){
+            dp[i] = max(dp[i-2]+ nums[i] , dp[i-1]);
+        }
+        return dp[nums.size()-1] ;
+        
+    }
