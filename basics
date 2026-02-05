@@ -1,0 +1,23 @@
+divisior without divide 
+
+int dividee(int divisor , int divident){
+    int sum = 0 , cnt = 0 ;
+    while(sum + divisor <= divident){
+        cnt = cnt+1;
+        sum += divisor;
+    }
+    return cnt;
+}
+
+mmin no of bits flip 2220 
+
+int minBitFlips(int start, int goal) {
+    int ans = start ^ goal;   // XOR gives differing bits
+    int cnt = 0;
+    for(int i = 0; i < 31; i++) {
+        if(ans & (1 << i)) {  // check if i-th bit is set
+            cnt++;
+        }
+    }
+    return cnt;
+}
